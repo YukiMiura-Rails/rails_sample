@@ -1,4 +1,4 @@
-Rails.application.routes.draw do'
+Rails.application.routes.draw do
   get 'static_pages/home'
   # -> static_page#home
   get 'static_pages/help'
