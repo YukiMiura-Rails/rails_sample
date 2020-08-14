@@ -11,6 +11,12 @@ class UsersController < ApplicationController
    # debugger
    @user = User.new(user_params)
    if @user.save
+    # GET "/users/#{@user.id}"
+    # redirect_to userpath(@user)
+    # redirect_to userpath(@user.id)
+    # redirect_to userpath(1)
+    redirect_to @user
+    flash[:success] = "Welcome to the Sample App!!"
     #success (valid params)
    else
     #failure (invalid params)
