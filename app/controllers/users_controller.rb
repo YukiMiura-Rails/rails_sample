@@ -16,6 +16,7 @@ class UsersController < ApplicationController
     # redirect_to userpath(@user.id)
     # redirect_to userpath(1)
     log_in @user
+    
     redirect_to @user
     flash[:success] = "Welcome to the Sample App!!"
     #success (valid params)
