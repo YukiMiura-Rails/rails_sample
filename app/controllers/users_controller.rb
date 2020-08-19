@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
-  # get users/new
-  before_action :logged_in_user,only:[:edit,:update]
+  # # get users/new
+   before_action :logged_in_user,only:[:index,:edit,:update,:destroy]
   before_action :correct_user,only:[:edit,:update]
+  before_action :admin_user,only: :destroy
+
+
   def new
     @user = User.new
   end
@@ -9,6 +12,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     # debugger
   end
+  
+ def index
+  @users = User.paginate(page:params[:page])
+ end
+  
   def create
    # debugger
    @user = User.new(user_params)
@@ -41,6 +49,12 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_path
+  end
+  
   
   private 
  
@@ -61,5 +75,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user)
   end
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
+    
+  end
+  
   
 end
