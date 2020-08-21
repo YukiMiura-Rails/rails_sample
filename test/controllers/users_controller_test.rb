@@ -21,6 +21,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get edit_user_path(@user)
     assert_response :success
     assert_select "title", "Edit user | #{@base_title}"
+    
 
   end
 

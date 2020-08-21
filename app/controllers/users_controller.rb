@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # # get users/new
-   before_action :logged_in_user,only:[:index,:edit,:update,:destroy]
+  before_action :logged_in_user,only:[:index,:edit,:update,:destroy]
   before_action :correct_user,only:[:edit,:update]
   before_action :admin_user,only: :destroy
 
@@ -25,11 +25,9 @@ class UsersController < ApplicationController
     # redirect_to userpath(@user)
     # redirect_to userpath(@user.id)
     # redirect_to userpath(1)
-    log_in @user
-    
-    redirect_to @user
-    flash[:success] = "Welcome to the Sample App!!"
-    #success (valid params)
+    @user.send_activation_email
+    flash[:info] = "Please check your email to activate your account."
+    redirect_to root_url    #success (valid params)
    else
     #failure (invalid params)
     render 'new'
